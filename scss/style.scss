@@ -189,7 +189,7 @@ $enable-shadows: false;
     font-size: 30px;
     right: 30px;
     bottom: 30px;
-    transition: background 0.5s;
+    //transition: background 0.5s;
     z-index: 11;
 }
 
@@ -229,7 +229,7 @@ $enable-shadows: false;
 
 @media (min-width: 768px) {
     .blog-item h3 {
-        margin-left: -90px;
+        margin-left: 90px;
     }
 }
 

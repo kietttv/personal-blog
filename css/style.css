@@ -9858,7 +9858,7 @@ h3 {
 
 @media (min-width: 768px) {
   .blog-item h3 {
-    margin-left: -90px;
+    margin-left: -5px;
   }
 }
 .skills .progress .progress-bar {

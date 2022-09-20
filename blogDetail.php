@@ -19,23 +19,33 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
+<?php
+    include_once("./connect.php");
+    $sql = "SELECT * FROM `user` WHERE userName = 'admin'";
+    $re = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($re);
+
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+        $selectPost = "SELECT * FROM `post` WHERE id = $id";
+        $rePost = mysqli_query($conn, $selectPost);
+        $rowPost = mysqli_fetch_assoc($rePost);
+    }
+?>
 
 <body>
     <div class="wrapper">
         <div class="sidebar">
             <div class="sidebar-text d-flex flex-column h-100 justify-content-center text-center">
                 <img class="mx-auto d-block w-75 bg-primary img-fluid rounded-circle mb-4 p-3" src="img/profile.jpg" alt="Image">
-                <h1 class="font-weight-bold">Kate Glover</h1>
-                <p class="mb-4">
-                    Justo stet no accusam stet invidunt sanctus magna clita vero eirmod, sit sit labore dolores lorem. Lorem at sit dolor dolores sed diam justo
-                </p>
+                <h1 class="font-weight-bold"><?=$row['fullName']?></h1>
+                <p class="mb-4"><?=$row['bio']?></p>
                 <div class="d-flex justify-content-center mb-5">
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://twitter.com/tk1eetj"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://www.facebook.com/k1eetj/"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://www.linkedin.com/in/truong-van-tuan-kiet-fgw-ct-5bba9a250/"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://www.instagram.com/ki33tj/?hl=vi"><i class="fab fa-instagram"></i></a>
                 </div>
-                <a href="" class="btn btn-lg btn-block btn-primary mt-auto">Hire Me</a>
             </div>
             <div class="sidebar-icon d-flex flex-column h-100 justify-content-center text-right">
                 <i class="fas fa-2x fa-angle-double-right text-primary"></i>
@@ -51,15 +61,8 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav m-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">About</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Pages</a>
-                                <div class="dropdown-menu">
-                                    <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                                    <a href="single.html" class="dropdown-item">Blog Detail</a>
-                                </div>
-                            </div>
+                            <a href="index.php" class="nav-item nav-link">Home</a>
+                            <a href="about.php" class="nav-item nav-link">About</a>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                     </div>
@@ -88,17 +91,15 @@
             <div class="container py-5 px-2 bg-white">
                 <div class="row px-4">
                     <div class="col-12">
-                        <img class="img-fluid mb-4" src="img/detail.jpg" alt="Image">
-                        <h2 class="mb-3 font-weight-bold">Nonumy ipsum takimata et sanct</h2>
+                        <img class="img-fluid mb-4" src="img/<?=$rowPost['thumbnail']?>" alt="Image">
+                        <h2 class="mb-3 font-weight-bold"><?=$rowPost['title']?></h2>
                         <div class="d-flex">
-                            <p class="mr-3 text-muted"><i class="fa fa-calendar-alt"></i> 01-Jan-2045</p>
-                            <p class="mr-3 text-muted"><i class="fa fa-folder"></i> Web Design</p>
+                            <p class="mr-3 text-muted"><i class="fa fa-calendar-alt"></i><?=$rowPost['date']?></p>
+                            <p class="mr-3 text-muted"><i class="fa fa-folder"></i>Web Design</p>
                             <p class="mr-3 text-muted"><i class="fa fa-comments"></i> 15 Comments</p>
                         </div>
-                        <p>Clita duo sadipscing amet ea ut kasd amet dolore, sed erat at dolore vero tempor et sit amet, amet amet elitr et consetetur ea duo. Gubergren tempor rebum clita at sit diam. Ea sadipscing voluptua et sit diam diam sed, gubergren magna ipsum lorem clita dolores nonumy dolor. Gubergren duo invidunt elitr amet labore dolores justo sanctus nonumy. Accusam diam tempor at ea clita dolores dolor et ipsum, dolor voluptua consetetur gubergren sit, no consetetur kasd vero invidunt clita dolore elitr eos, accusam amet et labore sed sadipscing accusam labore dolores. Eirmod no lorem sed dolor nonumy consetetur tempor sed.</p>
-                        <h3 class="mb-3 font-weight-bold">Est dolor lorem et ea</h3>
-                        <img class="w-50 float-left mr-4 mb-3" src="img/blog-1.jpg" alt="Image">
-                        <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et duo tempor sea kasd clita ipsum et. Takimata kasd diam justo est eos erat aliquyam et ut. Ea sed sadipscing no justo et eos labore, gubergren ipsum magna dolor lorem dolore, elitr aliquyam takimata sea kasd dolores diam, amet et est accusam labore eirmod vero et voluptua. Amet labore clita duo et no. Rebum voluptua magna eos magna, justo gubergren labore sit voluptua eos. Dolores et no stet magna et gubergren amet dolor sit, lorem dolore est vero et.</p>
+                        <img class="w-50 float-left mr-4 mb-3" src="img/<?=$rowPost['imgDetail']?>" alt="Image">
+                        <p></i><?=$rowPost['content']?></p>
                     </div>
                     <div class="col-12 py-4">
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>

@@ -19,23 +19,49 @@
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
+<?php
+    include_once("./connect.php");
+    $sql = "SELECT * FROM `user` WHERE userName = 'admin'";
+    $re = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($re);
 
+    if(isset($_POST['sendMessageButton'])){
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+        $contentMess = mysqli_real_escape_string($conn, $_POST['message']);
+      
+        $sendMess = "INSERT INTO `message` (`cusName`, `cusEmail`, `cusSubject`, `messContent`, `messTo`) 
+                    VALUES ('$name', '$email', '$subject', '$contentMess', '1')";
+      
+        if(mysqli_query($conn, $sendMess)){
+            echo"<script>
+                    window.location = 'contact.php?status=insert';
+                    alert('Send success');
+                </script>";
+        }
+        else{
+            echo "error: ". $sendMess. "<br>". mysqli_errno($conn);
+        }            
+       // mysqli_query($conn, $sendMess);
+    }
+?>
 <body>
     <div class="wrapper">
         <div class="sidebar">
             <div class="sidebar-text d-flex flex-column h-100 justify-content-center text-center">
-                <img class="mx-auto d-block w-75 bg-primary img-fluid rounded-circle mb-4 p-3" src="img/profile.jpg" alt="Image">
-                <h1 class="font-weight-bold">Kate Glover</h1>
+                <img class="mx-auto d-block w-75 bg-primary img-fluid rounded-circle mb-4 p-3" src="img/<?=$row['avata']?>" alt="Image">
+                <h1 class="font-weight-bold"><?=$row['fullName']?></h1>
                 <p class="mb-4">
-                    Justo stet no accusam stet invidunt sanctus magna clita vero eirmod, sit sit labore dolores lorem. Lorem at sit dolor dolores sed diam justo
+                    <?=$row['bio']?>
                 </p>
                 <div class="d-flex justify-content-center mb-5">
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-primary mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-outline-primary mr-2" href="https://twitter.com/tk1eetj"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://www.facebook.com/k1eetj/"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://www.linkedin.com/in/truong-van-tuan-kiet-fgw-ct-5bba9a250/"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-primary mr-2" href="https://www.instagram.com/ki33tj/?hl=vi"><i class="fab fa-instagram"></i></a>
                 </div>
-                <a href="" class="btn btn-lg btn-block btn-primary mt-auto">Hire Me</a>
+                <!-- <a href="" class="btn btn-lg btn-block btn-primary mt-auto">Hire Me</a> -->
             </div>
             <div class="sidebar-icon d-flex flex-column h-100 justify-content-center text-right">
                 <i class="fas fa-2x fa-angle-double-right text-primary"></i>
@@ -51,16 +77,16 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav m-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">About</a>
-                            <div class="nav-item dropdown">
+                            <a href="index.php" class="nav-item nav-link">Home</a>
+                            <a href="about.php" class="nav-item nav-link">About</a>
+                            <!-- <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu">
                                     <a href="blog.html" class="dropdown-item">Blog Grid</a>
                                     <a href="single.html" class="dropdown-item">Blog Detail</a>
                                 </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link active">Contact</a>
+                            </div> -->
+                            <a href="contact.php" class="nav-item nav-link active">Contact</a>
                         </div>
                     </div>
                 </nav>
@@ -75,7 +101,7 @@
                     </div>
                     <div class="col-sm-6 text-center text-md-right">
                         <div class="d-inline-flex pt-2">
-                            <h4 class="m-0 text-white"><a class="text-white" href="">Home</a></h4>
+                            <h4 class="m-0 text-white"><a class="text-white" href="index.php">Home</a></h4>
                             <h4 class="m-0 text-white px-2">/</h4>
                             <h4 class="m-0 text-white">Contact Me</h4>
                         </div>
@@ -91,41 +117,41 @@
                     <div class="col-sm-4 text-center mb-3">
                         <i class="fa fa-2x fa-map-marker-alt mb-3 text-primary"></i>
                         <h4 class="font-weight-bold">Address</h4>
-                        <p>123 Street, New York, USA</p>
+                        <p><?=$row['address']?></p>
                     </div>
                     <div class="col-sm-4 text-center mb-3">
                         <i class="fa fa-2x fa-phone-alt mb-3 text-primary"></i>
                         <h4 class="font-weight-bold">Phone</h4>
-                        <p>+012 345 6789</p>
+                        <p><?=$row['phone']?></p>
                     </div>
                     <div class="col-sm-4 text-center mb-3">
                         <i class="far fa-2x fa-envelope mb-3 text-primary"></i>
                         <h4 class="font-weight-bold">Email</h4>
-                        <p>info@example.com</p>
+                        <p><?=$row['email']?></p>
                     </div>
                 </div>
                 <div class="col-md-12 pb-5">
                     <div class="contact-form">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form name="sentMessage" id="contactForm" method="POST" novalidate="novalidate">
                             <div class="control-group">
-                                <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control" rows="8" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <textarea class="form-control" rows="8" id="message" name="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
-                                <button class="btn btn-primary" type="submit" id="sendMessageButton">Send Message</button>
+                                <button class="btn btn-primary" type="submit" id="sendMessageButton" name="sendMessageButton">Send Message</button>
                             </div>
                         </form>
                     </div>
@@ -133,11 +159,10 @@
             </div>
             <!-- Contact End -->
 
-
             <!-- Footer Start -->
             <div class="container py-4 bg-secondary text-center">
                 <p class="m-0 text-white">
-                    &copy; <a class="text-white font-weight-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed by <a class="text-white font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
+                    &copy; <a class="text-white font-weight-bold" href="#">Kiet blog</a>. All Rights Reserved. Designed by <a class="text-white font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
                 </p>
             </div>
             <!-- Footer End -->
@@ -148,17 +173,17 @@
     <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="lib/easing/easing.min.js"></script> -->
+    <!-- <script src="lib/waypoints/waypoints.min.js"></script> -->
 
     <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <!-- <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script> -->
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <!-- <script src="js/main.js"></script> -->
 </body>
 
 </html>
