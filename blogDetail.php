@@ -1,9 +1,5 @@
 <?php
     include_once("header.php");
-    $sql = "SELECT * FROM `user` WHERE userName = 'admin'";
-    $re = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($re);
-
     if(isset($_GET['id'])){
         $id = $_GET['id'];
         $selectPost = "SELECT * FROM `post` WHERE id = $id";
@@ -126,7 +122,7 @@
             <!-- Footer End -->
         </div>
     </div>
-            
+
     <!-- Back to Top -->
     <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
     

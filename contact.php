@@ -4,7 +4,7 @@
     $re = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($re);
 
-    if(isset($_POST['sendMessageButton'])){
+    if(isset($_POST['sendMessage'])){
         $name = mysqli_real_escape_string($conn, $_POST['name']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $subject = mysqli_real_escape_string($conn, $_POST['subject']);
@@ -82,7 +82,7 @@
                                 <p class="help-block text-danger"></p>
                             </div>
                             <div>
-                                <button class="btn btn-primary" type="submit" id="sendMessageButton" name="sendMessageButton">Send Message</button>
+                                <button class="btn btn-primary" type="submit" id="sendMessage" name="sendMessage">Send Message</button>
                             </div>
                         </form>
                     </div>
@@ -93,10 +93,10 @@
     <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
     
     <!-- JavaScript Libraries -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script> -->
-    <!-- <script src="lib/easing/easing.min.js"></script> -->
-    <!-- <script src="lib/waypoints/waypoints.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
 
     <!-- Contact Javascript File -->
     <!-- <script src="mail/jqBootstrapValidation.min.js"></script>

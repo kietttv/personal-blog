@@ -7,7 +7,6 @@
 
         if(isset($_POST['updateProfile'])){
             $name = mysqli_real_escape_string($conn, $_POST['name']);
-            //$avata = basename($_FILES['avata']['name']);
             $bio = mysqli_real_escape_string($conn, $_POST['bio']);
             $address = mysqli_real_escape_string($conn, $_POST['address']);
             $phone = mysqli_real_escape_string($conn, $_POST['phone']);
@@ -30,8 +29,6 @@
             else{
                 echo "error: ". $updateProfile. "<br>". mysqli_errno($conn);
             }
-            
-
             // debug
             // echo $name. $bio. $address. $phone. $email;
             //echo $updateProfile;
