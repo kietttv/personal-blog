@@ -5,6 +5,29 @@
         $selectPost = "SELECT * FROM `post` WHERE id = $id";
         $rePost = mysqli_query($conn, $selectPost);
         $rowPost = mysqli_fetch_assoc($rePost);
+
+        $selectComment = "SELECT * FROM `comment` WHERE postID = '$id'";
+        $reComment = mysqli_query($conn, $selectComment);
+
+        $selectCount = "SELECT COUNT(id) FROM `comment` WHERE postID = '$id'";
+        $reCount = mysqli_query($conn, $selectCount);
+        $rowCount = mysqli_fetch_assoc($reCount);
+    }
+    if(isset($_POST['sendComment'])){
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $commentContent = mysqli_real_escape_string($conn, $_POST['message']);
+
+        $sendComment = "INSERT INTO `comment` (`cusName`, `cusEmail`, `commContent`, `postID`) 
+                        VALUES ('$name', '$email', '$commentContent', '$id')";
+
+        if(mysqli_query($conn, $sendComment)){
+            echo"<script>
+                window.location = 'blogDetail.php?id=$id';
+            </script>";
+        }else{
+        echo "error: ". $sendComment. "<br>". mysqli_errno($conn);
+        }        
     }
 ?>
 <body>
@@ -34,7 +57,7 @@
                         <div class="d-flex">
                             <p class="mr-3 text-muted"><i class="fa fa-calendar-alt"></i><?=$rowPost['date']?></p>
                             <p class="mr-3 text-muted"><i class="fa fa-folder"></i>Web Design</p>
-                            <p class="mr-3 text-muted"><i class="fa fa-comments"></i> 15 Comments</p>
+                            <p class="mr-3 text-muted"><i class="fa fa-comments"></i><?=$rowCount['COUNT(id)']?> Comments</p>
                         </div>
                         <img class="w-50 float-left mr-4 mb-3" src="img/<?=$rowPost['imgDetail']?>" alt="Image">
                         <p></i><?=$rowPost['content']?></p>
@@ -55,59 +78,47 @@
                         </div> 
                     </div>
                     <div class="col-12 py-4">
-                        <h3 class="mb-4 font-weight-bold">3 Comments</h3>
-                        <div class="media mb-4">
+                        <h3 class="mb-4 font-weight-bold"><?=$rowCount['COUNT(id)']?> Comments</h3>
+                <?php while($rowComment = mysqli_fetch_assoc($reComment)){?>
+                    <div class="media mb-4">
                             <img src="img/user.jpg" alt="Image" class="mr-3 mt-1 rounded-circle" style="width:60px;">
                             <div class="media-body">
-                                <h4>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <button class="btn btn-sm btn-light">Reply</button>
-                            </div>
-                        </div>
-                        <div class="media mb-4">
-                            <img src="img/user.jpg" alt="Image" class="mr-3 mt-1 rounded-circle"
-                                style="width:60px;">
-                            <div class="media-body">
-                                <h4>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <button class="btn btn-sm btn-light">Reply</button>
-                                <div class="media mt-4">
-                                    <img src="img/user.jpg" alt="Image" class="mr-3 mt-1 rounded-circle"
-                                        style="width:60px;">
-                                    <div class="media-body">
-                                        <h4>John Doe <small><i>01 Jan 2045 at 12:00pm</i></small></h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        </p>
+                                <h4><small><?=$rowComment['cusName']?> <i>  01 Jan 2045 at 12:00pm</i></small></h4>
+                                <p><?=$rowComment['commContent']?></p>
+                                <form action="">
+                                    <div class="form-group">
+                                        <label for="name">Reply</label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                    <div>
                                         <button class="btn btn-sm btn-light">Reply</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
+                <?php }?> 
                     </div>
                     <div class="col-12">
                         <h3 class="mb-4 font-weight-bold">Leave a comment</h3>
-                        <form>
+                        <form method="post">
                             <div class="form-group">
                                 <label for="name">Name *</label>
-                                <input type="text" class="form-control" id="name">
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email *</label>
-                                <input type="email" class="form-control" id="email">
+                                <input type="email" class="form-control" id="email" name="email">
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="website">Website</label>
-                                <input type="url" class="form-control" id="website">
-                            </div>
-
+                                <input type="url" class="form-control" id="website" name="website">
+                            </div> -->
                             <div class="form-group">
                                 <label for="message">Message *</label>
-                                <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                                <textarea id="message" name="message" cols="30" rows="5" class="form-control"></textarea>
                             </div>
-                            <div class="form-group">
-                                <input type="submit" value="Leave Comment" class="btn btn-primary">
+                            <div>
+                                <button class="btn btn-primary" type="submit" id="sendComment" name="sendComment">Send Comment</button>
                             </div>
                         </form>
                     </div>

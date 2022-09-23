@@ -15,6 +15,9 @@
         <div class="carousel-inner">
             <?php
                 while($rowNewPost = mysqli_fetch_assoc($reNewPosts)){
+                    $selectCount = "SELECT COUNT(id) FROM `comment` WHERE postID = $rowNewPost[id]";
+                    $reCount = mysqli_query($conn, $selectCount);
+                    $rowCount = mysqli_fetch_assoc($reCount);
                     if($i == 1){?>
                         <div class="carousel-item active">
                     <?php }else{?>
@@ -26,7 +29,7 @@
                             <div class="d-flex text-white">
                                 <small class="mr-2"><i class="fa fa-calendar-alt"></i><?=$rowNewPost['date']?></small>
                                 <small class="mr-2"><i class="fa fa-folder"></i> Web Design</small>
-                                <small class="mr-2"><i class="fa fa-comments"></i> 15 Comments</small>
+                                <small class="mr-2"><i class="fa fa-comments"></i> <?=$rowCount['COUNT(id)']?> Comments</small>
                             </div>
                             <a href="blogDetail.php?id=<?=$rowNewPost['id']?>" class="btn btn-lg btn-outline-light mt-4">Read More</a>
                         </div>
@@ -47,7 +50,11 @@
 </div>
 <!-- Carousel End -->                      
 <!-- Blog List Start -->
-<?php while($rowPost = mysqli_fetch_assoc($rePosts)){?>    
+<?php while($rowPost = mysqli_fetch_assoc($rePosts)){
+    $selectCount = "SELECT COUNT(id) FROM `comment` WHERE postID = $rowPost[id]";
+    $reCount = mysqli_query($conn, $selectCount);
+    $rowCount = mysqli_fetch_assoc($reCount);
+    ?>    
     <div class="container bg-white pt-5">
         <div class="row blog-item px-3 pb-5">
             <div class="col-md-5">
@@ -58,7 +65,7 @@
                 <div class="d-flex mb-3">
                     <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"><?=$rowPost['date']?></i></small>
                     <small class="mr-2 text-muted"><i class="fa fa-folder"></i> Web Design</small>
-                    <small class="mr-2 text-muted"><i class="fa fa-comments"></i> 15 Comments</small>
+                    <small class="mr-2 text-muted"><i class="fa fa-comments"></i> <?=$rowCount['COUNT(id)']?> Comments</small>
                 </div>
                 <p><?=$rowPost['smallDescription']?></p>
                 <a class="btn btn-link p-0" href="blogDetail.php?id=<?=$rowPost['id']?>">Read More <i class="fa fa-angle-right"></i></a>
