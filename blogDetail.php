@@ -29,6 +29,7 @@
         echo "error: ". $sendComment. "<br>". mysqli_errno($conn);
         }        
     }
+    
 ?>
 <body>
             <!-- Page Header Start -->
@@ -62,7 +63,7 @@
                         <img class="w-50 float-left mr-4 mb-3" src="img/<?=$rowPost['imgDetail']?>" alt="Image">
                         <p></i><?=$rowPost['content']?></p>
                     </div>
-                    <div class="col-12 py-4">
+                    <!-- <div class="col-12 py-4">
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
@@ -70,13 +71,13 @@
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
                         <a href="" class="btn btn-sm btn-outline-primary mb-1">Lorem</a>
-                    </div>
-                    <div class="col-12 py-4">
+                    </div> -->
+                    <!-- <div class="col-12 py-4">
                         <div class="btn-group btn-group-lg w-100">
                             <button type="button" class="btn btn-outline-primary"><i class="fa fa-angle-left mr-2"></i> Previous</button>
                             <button type="button" class="btn btn-outline-primary">Next<i class="fa fa-angle-right ml-2"></i></button>
                         </div> 
-                    </div>
+                    </div> -->
                     <div class="col-12 py-4">
                         <h3 class="mb-4 font-weight-bold"><?=$rowCount['COUNT(id)']?> Comments</h3>
                 <?php while($rowComment = mysqli_fetch_assoc($reComment)){?>
@@ -85,13 +86,13 @@
                             <div class="media-body">
                                 <h4><small><?=$rowComment['cusName']?> <i>  01 Jan 2045 at 12:00pm</i></small></h4>
                                 <p><?=$rowComment['commContent']?></p>
-                                <form action="">
+                                <form action="" method="post">
                                     <div class="form-group">
                                         <label for="name">Reply</label>
-                                        <input type="text" class="form-control" id="name" name="name">
+                                        <input type="text" class="form-control" id="reply" name="reply">
                                     </div>
                                     <div>
-                                        <button class="btn btn-sm btn-light">Reply</button>
+                                        <button class="btn btn-sm btn-light" type="submit" id="reply" name="reply">Reply</button>
                                     </div>
                                 </form>
                             </div>
