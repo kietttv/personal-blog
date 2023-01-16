@@ -26,7 +26,7 @@ $i = 1;
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <h2 class="mb-3 text-white font-weight-bold"><?= $rowNewPost['title'] ?></h2>
                             <div class="d-flex text-white">
-                                <small class="mr-2"><i class="fa fa-calendar-alt"></i><?= $rowNewPost['date'] ?></small>
+                                <small class="mr-2"><i class="fa fa-calendar-alt"></i> <?= $rowNewPost['date'] ?></small>
                                 <small class="mr-2"><i class="fa fa-folder"></i> Web Design</small>
                                 <small class="mr-2"><i class="fa fa-comments"></i> <?= $rowCount['COUNT(id)'] ?> Comments</small>
                             </div>
@@ -62,7 +62,7 @@ $i = 1;
                 <div class="col-md-7">
                     <h3 class="mt-md-4 px-md-10 mb-2 py-2 bg-white font-weight-bold"><?= $rowPost['title'] ?></h3>
                     <div class="d-flex mb-3">
-                        <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"><?= $rowPost['date'] ?></i></small>
+                        <small class="mr-2 text-muted"><i class="fa fa-calendar-alt"> <?= $rowPost['date'] ?></i></small>
                         <small class="mr-2 text-muted"><i class="fa fa-folder"></i> Web Design</small>
                         <small class="mr-2 text-muted"><i class="fa fa-comments"></i> <?= $rowCount['COUNT(id)'] ?> Comments</small>
                     </div>
